@@ -134,3 +134,56 @@ This solution is O(n) which I think is probably the best time complexity althoug
 
 Link to solution -> https://leetcode.com/problems/valid-anagram/submissions/1266972132
 
+
+
+## 5/26/24
+
+##### Problem 217 - Contains Duplicate
+
+I just started problem 217 - Contains Duplicate the other day and didn't get to finish it, my original idea below was just sorting it and then using two pointers (I think we may have talked about this problem in class for a minute in the past two years) I will put this solution below 
+
+```
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        nums.sort()
+        p1 = 0
+        p2 = 1
+
+        if (len(nums) < 2):
+            return False
+        else:
+            while (p2 < len(nums)):
+                if (nums[p1] == nums[p2]):
+                    return True
+                p1+=1
+                p2+=1
+```
+
+This comes to a time complexity of O(nlogn) because its being capped by the sorting algorithm. However I realized after I could get a faster time just by using a hashmap. I think thats more ideal so I am putting that below.
+
+```
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        countTable = {}
+        for num in nums:
+            if num in countTable:
+                countTable[num]+=1
+            else:
+                countTable[num] = 0
+        
+        for values in countTable:
+            if countTable[values] > 0:
+                return True
+        return False
+```
+
+I think this O(n) solution is probably the best. I am getting a little more used to these problems and my python skills are starting to come back to me a little bit. I am now done with all the EASY array problems in the first node of the neetcode branch. On to the MEDIUMS (Hope these wont kill me) but approaching mediums I am going to start looking at solutions if I am taking more then like 30 - 45 minutes to actually think of a solution (not necessarily solve it)
+
