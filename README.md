@@ -187,3 +187,45 @@ class Solution(object):
 
 I think this O(n) solution is probably the best. I am getting a little more used to these problems and my python skills are starting to come back to me a little bit. I am now done with all the EASY array problems in the first node of the neetcode branch. On to the MEDIUMS (Hope these wont kill me) but approaching mediums I am going to start looking at solutions if I am taking more then like 30 - 45 minutes to actually think of a solution (not necessarily solve it)
 
+###### Note - Prefix Sum
+
+I didn't learn about this school, but seems like a cool array algo 
+Takes an array and creates a new array that contains the sum of the sequence of values that come before it
+
+ie -
+someArr = [1,3,2,2,4]
+prefixSumArr = [1,4,6,8,12]
+
+
+###### Problem 49 - Group Anagrams
+
+My first EVER medium!!! I actually did better then I thought, Maybe took me 20-25 minutes to figure out the logic and then another 10 to actually program it (Rough estimates I was about an about while solving). Less scary then I originally thought although def took more thought then the other easy's. I originally wanted to put each string into a hash map to compare them like my regular anagram solution however, I halfway into coding it that this probably wouldn't be super efficient so I switched to sorting the anagrams instead. Def could have saved some space complexity but sweating it. 
+
+```
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        #Sort anagrams
+        sortedAnagrams = [''.join(sorted(string)) for string in strs]
+        groupDict = {}
+        outputArr = []
+
+        for index, sortedString in enumerate(sortedAnagrams):
+            if sortedString not in groupDict:
+                groupDict[sortedString] = [strs[index]]
+            else: 
+                groupDict[sortedString].append(strs[index]) 
+        
+        for value in groupDict.values():
+            outputArr.append(value)
+
+        return outputArr
+        
+```
+
+Solution -> https://leetcode.com/problems/group-anagrams/solutions/3687735/beats-100-c-java-python-beginner-friendly
+
+Overall happy with my progress so far, with enough time I have been able to work through all the problems I have dealt with.
