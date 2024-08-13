@@ -391,3 +391,198 @@ class Solution(object):
 ```
 
 Link to solution -> https://leetcode.com/problems/valid-sudoku/submissions/1345939199
+
+## 8/6 WE ARE SO BACK
+
+Starting the day fresh by jumping into a TWO pointer problem, except my first solution didn't actually utilize two pointers lol
+
+###### 125. Valid Palindrome
+
+```
+#Clean String
+#Reverse
+#Compare 
+
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        cleanString = ""
+        pointer = 0
+
+        for char in s:
+            if char.isalnum():
+                cleanString += char
+        
+        cleanString = cleanString.lower()
+        reverse = cleanString[::-1]
+
+        if cleanString == reverse:
+            return True
+        return False
+```
+
+## 8/12/24 Back in florida!
+
+Starting the day of strong with a STACK problem!
+
+###### 20. Valid Parentheses
+
+I had solved this in java a while ago but it took me a while to get back to the optimal solution in python I'm ngl. Feeling good though starting off a new problem category! Lol didn't realize a stack is just a list in python
+
+Anywho's here my not super elegant python solution
+
+```
+#Loop through string, add any open brackets to a stack
+#If we encounter a closed bracket then pop off stack and check for match
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        open = []
+
+        if(len(s) % 2 != 0):
+            return False
+
+        for bracket in s:
+            if (bracket == "{" or bracket == "[" or bracket == "("):
+                open.append(bracket)
+            else:
+                if bracket == "]":
+                    if len(open) == 0 or open.pop() != "[":
+                        return False
+                if bracket == "}":
+                    if len(open) == 0 or open.pop() != "{":
+                        return False
+                if bracket == ")":
+                    if len(open) == 0 or open.pop() != "(":
+                        return False
+            
+        return (len(open) == 0)
+
+```
+
+Link to solution -> https://leetcode.com/problems/valid-parentheses/submissions/1353526765
+
+## 8/13/2024
+
+Finally forcing myself through these problems like I should be, I feel like when I get hung up on a problem I just wanna abandon it instead of seeing it through, but even if I rly don't wanna problem solve I think I need to start looking at help sooner. After all this is a memory plus problem solving deal not just problem solving.
+
+###### 125. Valid Palindrome
+
+This one was easy in concept with python, but I decided to avoid so many nice easy built in functions like isalnum to plan for the worst, after all it would suck to be an interview and have them tell me I NEED to figure it out instead of using built in's and getting totally lost.
+
+Anywho's I present HER 
+
+```
+#Make two pointers
+#Set them at left and right indexes
+#Loop thru WHILE left is < right 
+#Check that characters are equal (And skipping if it's a space)
+
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        left = 0
+        right = (len(s) - 1)
+
+
+        while(left < right):
+            while left < right and not self.isAlpha(s[left]):
+                left += 1
+            while left < right and not self.isAlpha(s[right]):
+                right -= 1
+
+            if s[left].lower() != s[right].lower():
+                return False
+            left += 1
+            right -= 1
+
+        return True
+        
+    def isAlpha(self, c):
+        if (ord('0') <= ord(c) <= ord('9') or ord('A') <= ord(c) <= ord('Z') or ord('a') <= ord(c) <= ord('z')):
+            return True
+        return False
+```
+
+
+Link to solution -> https://leetcode.com/problems/valid-palindrome/submissions/1354372538
+
+###### 167. Two Sum II
+
+God leetcode frustration setting in on this one lol, super close to answer within 15 minutes but got stuck for a while and checked answer and my loop conditions were just out of order UGHHHHH, but lesson learned
+
+```
+#Two sum but we are returning an array with the indexes 
+#Constant space so no extra dict, this FORCES us to use two pointers
+#Left pointer right pointer, keep inc'ing right pointer until sum exceeds target THEN move left pointer
+
+
+class Solution(object):
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        l = 0
+        r = len(numbers) - 1 
+        
+        while r < len(numbers):
+            if numbers[l] + numbers[r] > target:
+                r -= 1
+            elif numbers[l] + numbers[r] < target:
+                l += 1
+            else: 
+                return [l+1,r+1]
+    
+```
+
+Link to solution -> https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/submissions/1354423634
+
+###### 15. 3Sum
+
+Ngl was feeling decent about this problem going in using some kind of psudo 2sum dict + a loop approach however could NOT get it working after a while and unlike the other problems after watching the neetcode video I still didn't have a full grasp on the solution. Def gotta come back to this soon and try again. My solution is basically neetcodes with one extra conditional
+
+```
+
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        triplets = []
+        nums.sort()
+
+        for index, num in enumerate(nums):
+            if index > 0 and num == nums[index-1]:
+                continue
+            
+            l,r = index + 1, len(nums) - 1
+            while l < r:
+                tresSum = num + nums[l] + nums[r]
+                if tresSum > 0:
+                    r -= 1
+                elif tresSum < 0:
+                    l += 1
+                else:
+                    someTriplet = [num, nums[l], nums[r]]
+                    if someTriplet not in triplets:
+                        triplets.append(someTriplet)
+                    l += 1
+                    while l == nums[l-1] and l != r:
+                        l += 1
+
+        return triplets
+
+```
+
